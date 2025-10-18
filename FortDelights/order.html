@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <style>
+/* Two-layer crossfade wrapper */
+.fd-crossfade {
+  position: relative;
+  display: inline-block;   /* keeps your current layout */
+}
+.fd-crossfade img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* use 'contain' if you prefer letterboxing */
+  opacity: 0;
+  transition: opacity 1500ms ease-in-out;
+}
+.fd-crossfade img.fd-show { opacity: 1; }
+</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Order • Fort Delights</title>
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+  <link rel="stylesheet" href="css/vendor.css">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    :root { --gold:#d4af37; }
+    .fade-swap { opacity:1; transition:opacity 700ms ease-in-out; display:block; }
+    .fade-swap.is-fading { opacity:0; }
+    .order-card{
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .order-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:18px; }
+    @media(max-width: 900px){ .order-grid{ grid-template-columns:1fr; } }
+    .form-row{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:14px; }
+    .form-row--single{ grid-template-columns: 1fr; }
+    .form-row label{ color:#ccc; font-size:0.95rem; margin-bottom:6px; display:block; }
+    .form-row input, .form-row select, .form-row textarea{
+      width:100%; background:#111; color:#eee; border:1px solid #333;
+      border-radius:8px; padding:12px; outline:none;
+    }
+    .form-row textarea{ min-height:110px; resize:vertical; }
+    .total-line{ font-weight:700; color:var(--gold); font-size:1.05rem; }
+    .btn-primary{
+      background:var(--gold); color:#111; border:none; border-radius:999px;
+      padding:12px 22px; font-weight:700; cursor:pointer;
+    }
+    .divider { border-top:1px solid rgba(191,193,192,.18); margin:28px 0; }
+  </style>
+</head>
+
+<body id="top">
+  <header class="s-header">
+    <div class="container s-header__content">
+      <div class="s-header__block">
+        <div class="header-logo">
+          <a class="logo" href="index.html">
+            <img src="images/main.png" alt="Homepage" style="padding: 12px 20px;">
+          </a>
+        </div>
+        <a class="header-menu-toggle" href="#0"><span>Menu</span></a>
+      </div>
+
+      <nav class="header-nav">
+        <ul class="header-nav__links">
+          <li><a href="index.html#intro">Intro</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#menu">Menu</a></li>
+          <li><a href="index.html#gallery">Gallery</a></li>
+          <li class="current"><a href="#order">Order</a></li>
+        </ul>
+        <div class="header-contact">
+          <a href="tel:+94777305327" class="header-contact__num btn">+94 77 7 30 5327</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section id="order" class="container s-intro target-section" style="padding-top: 5rem;">
+    <div class="grid-block s-intro__content">
+      <div class="intro-header">
+        <div class="intro-header__overline">Place an</div>
+        <h1 class="intro-header__big-type">Order</h1>
+      </div>
+
+      <figure class="intro-pic-primary">
+        <img id="order-hero" class="fade-swap"
+             src="images/intro-pic-primary.jpg" alt="Fort Delights"
+             style="border-radius:12px;"/>
+      </figure>
+
+      <div class="intro-block-content">
+        <div class="intro-block-content__text-wrap">
+          <p class="intro-block-content__text">
+            Freshly prepared whole desserts. Choose your favorite and tell us when you need it 💛
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container s-menu target-section">
+    <div class="row s-menu__content">
+      <div class="column xl-4 lg-5 md-12 s-menu__content-start">
+        <div class="section-header" data-num="01">
+          <h2 class="text-display-title">Whole Desserts</h2>
+        </div>
+      </div>
+
+      <div class="column xl-6 lg-6 md-12 s-menu__content-end">
+        <div class="order-grid" style="margin-bottom:28px;">
+          <div class="order-card" style="display:grid; grid-template-columns:1fr auto; gap:14px; align-items:center;">
+            <div>
+              <h4 style="margin:0 0 6px; color:#fff;">Caramel Pudding (Whole)</h4>
+              <p style="margin:0 0 8px; color:#ccc;">Classic silky caramel pudding, family-sized whole.</p>
+              <div style="font-weight:700; color:var(--gold);">Rs: <span id="price-caramel">4500</span></div>
+            </div>
+            <div style="justify-self:end; padding:4px;">
+              <img src="images/caramel-delight.png" alt="Caramel Pudding" style="width:120px;height:120px;object-fit:contain;">
+            </div>
+          </div>
+
+          <div class="order-card" style="display:grid; grid-template-columns:1fr auto; gap:14px; align-items:center;">
+            <div>
+              <h4 style="margin:0 0 6px; color:#fff;">Coconut Cake (Whole)</h4>
+              <p style="margin:0 0 8px; color:#ccc;">Moist coconut cake with cashew & honey topping.</p>
+              <div style="font-weight:700; color:var(--gold);">Rs: <span id="price-coconut">6000</span></div>
+            </div>
+            <div style="justify-self:end; padding:4px;">
+              <img src="images/cocnut-delight.png" alt="Coconut Cake" style="width:120px;height:120px;object-fit:contain;">
+            </div>
+          </div>
+        </div>
+
+        <div class="order-card">
+          <h3 style="margin:0 0 14px; color:#fff;">Order Form</h3>
+
+          <form id="order-form" enctype="multipart/form-data" novalidate>
+              <style>
+    #order-form label {
+      color:#ccc;
+      font-size:1.1rem;
+      font-weight:600;
+      margin-bottom:6px;
+      display:block;
+      font-size: large;
+    }
+  </style>
+            <div class="form-row">
+              <div><label for="name">Full Name *</label><input id="name" name="name" type="text" required></div>
+              <div><label for="phone">Phone *</label><input id="phone" name="phone" type="tel" required></div>
+            </div>
+
+            <div class="form-row form-row--single">
+              <div><label for="address">Address *</label><textarea id="address" name="address" required></textarea></div>
+            </div>
+
+            <div class="form-row">
+              <div>
+                <label for="item">Item *</label>
+                <select id="item" name="item" required>
+                  <option value="caramel" data-price="4500">Caramel Pudding (Whole)</option>
+                  <option value="coconut" data-price="6000">Coconut Cake (Whole)</option>
+                </select>
+              </div>
+              <div>
+                <label for="qty">Quantity *</label>
+                <input id="qty" name="qty" type="number" min="1" value="1" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div>
+                <label for="needby">Needed On *</label>
+                <input id="needby" name="needby" type="datetime-local" required>
+              </div>
+              <div>
+                <label for="note">Notes</label>
+                <input id="note" name="note" type="text" placeholder="Any special requests?">
+              </div>
+            </div>
+
+            <!-- Payment Method -->
+            <div class="form-row form-row--single">
+              <div>
+                <label for="payment">Payment Method *</label>
+                <select id="payment" name="payment" required>
+                  <option value="cod">Cash on Delivery</option>
+                  <option value="online">Online Payment</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Hidden bank details (toggle visible for Online) -->
+            <div id="bank-details" style="display:none; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:16px; margin-bottom:14px;">
+              <h4 style="color:#d4af37; margin-top:0;">Bank Details</h4>
+              <p style="color:#ccc; margin:0 0 8px;">
+                <b>Bank:</b> Commercial Bank of Ceylon PLC<br>
+                <b>Account Name:</b> Fort Delights Café<br>
+                <b>Account No:</b> 1234567890<br>
+                <b>Branch:</b> Galle Fort
+              </p>
+
+              <div class="form-row">
+                <div><label for="ref">Bank Reference Number *</label><input id="ref" name="ref" type="text" placeholder="e.g. 2025TXN1234"></div>
+                <div><label for="slip">Upload Payment Slip *</label><input id="slip" name="slip" type="file" accept="image/*,application/pdf"></div>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="form-row form-row--single" style="align-items:center;">
+              <div class="total-line" style="font-size: larger;">Total: Rs <span id="total">4500</span></div>
+            </div>
+
+            <div class="form-row form-row--single" style="margin-top:8px;">
+              <button type="submit" class="btn-primary">Submit Order</button>
+            </div>
+
+            <p id="form-msg" style="margin-top:10px; display:none;"></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <footer id="footer" class="container s-footer">
+    <div class="row s-footer__bottom">
+      <div class="column xl-6 lg-12">
+        <p class="ss-copyright">
+          <span>© Fort Delights 2025</span>
+          <span>Design by Fort Delights</span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+(() => {
+  if (window.FD_XFADE_INITED) return;
+  window.FD_XFADE_INITED = true;
+
+  // Build numbered candidates: base + (1..n) + ext
+  function buildNumberedList(base, n, ext) {
+    const out = [];
+    for (let i = 1; i <= n; i++) out.push(`${base}${i}${ext}`);
+    return out;
+  }
+
+  // Preload all candidates; keep only those that load
+  function preloadList(paths) {
+    return Promise.all(paths.map(src => new Promise(res => {
+      const im = new Image();
+      im.onload  = () => res(src);
+      im.onerror = () => res(null);
+      im.src = src;
+    }))).then(list => list.filter(Boolean));
+  }
+
+  // Turn one <img> into a two-layer crossfade slideshow
+  function attachCrossfade(img, sources, intervalMs = 5000) {
+    if (!img || sources.length < 2) return;
+
+    // measure current element to lock wrapper size (prevents layout shift)
+    const rect = img.getBoundingClientRect();
+    const wrap = document.createElement('div');
+    wrap.className = 'fd-crossfade';
+    if (rect.width)  wrap.style.width  = rect.width  + 'px';
+    if (rect.height) wrap.style.height = rect.height + 'px';
+
+    // layers
+    const a = new Image();
+    const b = new Image();
+    a.decoding = 'async';
+    b.decoding = 'async';
+    a.alt = img.alt || '';
+    b.alt = img.alt || '';
+
+    // insert wrapper before img, then hide original (kept as noscript fallback)
+    img.parentNode.insertBefore(wrap, img);
+    wrap.appendChild(a);
+    wrap.appendChild(b);
+    img.style.display = 'none';
+
+    // start index from current src if present
+    let idx = Math.max(0, sources.indexOf(img.getAttribute('src')));
+    a.src = sources[idx];
+    a.classList.add('fd-show');
+
+    idx = (idx + 1) % sources.length;
+    b.src = sources[idx];
+
+    let showA = true;
+    function step() {
+      // prepare hidden layer with next image
+      const hidden = showA ? b : a;
+      idx = (idx + 1) % sources.length;
+      hidden.src = sources[idx];
+
+      // crossfade
+      requestAnimationFrame(() => {
+        (showA ? b : a).classList.add('fd-show');
+        (showA ? a : b).classList.remove('fd-show');
+        showA = !showA;
+      });
+    }
+
+    let timer = setInterval(step, intervalMs);
+    const pause  = () => { if (timer) { clearInterval(timer); timer = null; } };
+    const resume = () => { if (!timer) timer = setInterval(step, intervalMs); };
+
+    wrap.addEventListener('mouseenter', pause);
+    wrap.addEventListener('mouseleave', resume);
+    document.addEventListener('visibilitychange', () => (document.hidden ? pause() : resume()));
+  }
+
+  async function initFaders() {
+    // PRIMARY hero candidates (adjust names/extensions to match your files)
+    const primaryCandidates = [
+      // numbered series if you have them:
+      ...buildNumberedList('images/intro-pic-primary', 8, '.jpg'),
+      // explicit files you mentioned:
+      'images/intro-pic-primary1.png',
+      'images/intro-pic-primary2.png',
+      'images/intro-pic-primary3.png'
+    ];
+
+    // SECONDARY block candidates (adjust if you have variants)
+    const secondaryCandidates = [
+      ...buildNumberedList('images/intro-pic-secondary', 8, '.jpg'),
+            'images/intro-pic-primary1.png',
+      'images/intro-pic-primary2.png',
+      'images/intro-pic-primary3.png'
+    ];
+
+    // Find your two <img>s
+    const primaryImg   = document.querySelector('.intro-pic-primary img');
+    const secondaryImg = document.querySelector('.intro-block-content__pic img');
+
+    // Preload and filter out missing images (S3 is case-sensitive!)
+    const [primaryOK, secondaryOK] = await Promise.all([
+      preloadList(primaryCandidates),
+      preloadList(secondaryCandidates)
+    ]);
+
+    // Attach if at least 2 images exist
+    if (primaryImg && primaryOK.length >= 2)   attachCrossfade(primaryImg, primaryOK, 8000);
+    if (secondaryImg && secondaryOK.length >= 2) attachCrossfade(secondaryImg, secondaryOK, 8000);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFaders);
+  } else {
+    initFaders();
+  }
+})();
+</script>
+</body>
+</html>
